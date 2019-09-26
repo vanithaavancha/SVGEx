@@ -1,0 +1,157 @@
+<div class="container">
+    <div class="row header">
+        <div class="col-md-2">
+            <img src="assets/drawing.png" width="160" height="80" />
+        </div>
+        <div class="col-md-10">
+            <h1>{{ title }}</h1>
+        </div>
+    </div>
+    {{ form.value | json }}
+    <div class="row">
+        <div class="col-md-2 tools nopadding">
+            <div class="panel-group" id="accordion" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#shapes"
+                                aria-expanded="false" aria-controls="basicshapes">
+                                Shapes
+                            </a>
+                        </div>
+                    </div>
+                    <div id="shapes" data-parent="#accordion" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="row nopadding">
+                                <button (click)="selectShape('Line')" type="button"
+                                    class="btn btn-outline-primary col-md-3 shape"><img src="assets/line.png" width="24"
+                                        height="24"></button>
+                                <button (click)="selectShape('Rectangle')" type="button"
+                                    class="btn btn-outline-primary col-md-3 shape"><img src="assets/rectangle.png"
+                                        width="24" height="24"></button>
+                                <button (click)="selectShape('Circle')" type="button"
+                                    class="btn btn-outline-primary col-md-3 shape"><img src="assets/circle.png"
+                                        width="24" height="24"></button>
+                            </div>
+                            <div class="row nopadding">
+                                <button (click)="selectShape('Ellipse')" type="button"
+                                    class="btn btn-outline-primary col-md-3 shape"><img src="assets/ellipse.png"
+                                        width="24" height="24"></button>
+                                <button (click)="selectShape('Path')" type="button"
+                                    class="btn btn-outline-primary col-md-3 shape"><img src="assets/path.png" width="24"
+                                        height="24"></button>
+                                <button (click)="selectShape('Square')" type="button"
+                                    class="btn btn-outline-primary col-md-3 shape"><img src="assets/square.png"
+                                        width="24" height="24"></button>
+                            </div>
+                            <div class="row nopadding">
+                                <button (click)="selectShape('TextBox')" type="button"
+                                    class="btn btn-outline-primary col-md-3 shape"><img src="assets/text.png" width="24"
+                                        height="24"></button>
+                                <button (click)="selectShape('Image')" type="button"
+                                    class="btn btn-outline-primary col-md-3 shape"><img src="assets/image.png"
+                                        width="24" height="24"></button>
+                                <button (click)="selectShape('PolyLine')" type="button"
+                                    class="btn btn-outline-primary col-md-3 shape"><img src="assets/polyline.png"
+                                        width="24" height="24"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#options"
+                                aria-expanded="false" aria-controls="options">
+                                Tools
+                            </a>
+                        </div>
+                    </div>
+                    <div id="options" data-parent="#accordion" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="row nopadding">
+                                <button (click)="selectTool('SelectArea')" type="button"
+                                    class="btn btn-outline-primary col-md-3 shape"><img src="assets/select-area.png"
+                                        width="24" height="24"></button>
+                                <button (click)="selectTool('Move')" type="button"
+                                    class="btn btn-outline-primary col-md-3 shape"><img src="assets/move.png" width="24"
+                                        height="24"></button>
+                                <button (click)="selectTool('Pointer')" type="button"
+                                    class="btn btn-outline-primary col-md-3 shape"><img src="assets/pointer.png"
+                                        width="24" height="24"></button>
+                            </div>
+                            <div class="row nopadding">
+                                <button (click)="selectTool('Rotate')" type="button"
+                                    class="btn btn-outline-primary col-md-3 shape"><img src="assets/rotate.png"
+                                        width="24" height="24"></button>
+                                <button (click)="selectTool('Fliphorizontal')" type="button"
+                                    class="btn btn-outline-primary col-md-3 shape"><img src="assets/flip-horizontal.png"
+                                        width="24" height="24"></button>
+                                <button (click)="selectTool('Flipvertical')" type="button"
+                                    class="btn btn-outline-primary col-md-3 shape"><img src="assets/flip-vertical.png"
+                                        width="24" height="24"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" href="#properties"
+                                aria-expanded="false" aria-controls="properties">
+                                Properties
+                            </a>
+                        </div>
+                    </div>
+                    <div id="properties" data-parent="#accordion" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="row nopadding">
+                                <div class="col-md-12">
+                                    <dynamic-form [fields]="formFields" (submit)="submit($event)"></dynamic-form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- added by vanitha -->
+                    <form #formRef="ngForm">
+                        <div *ngFor="let word2 of words2; let in=index" class="col-md-12" >
+                            <div class="form-group">
+                                <input type="text" [(ngModel)]="words2[in].value" name="name{{in}}" class="form-control"
+                                    #name="ngModel" required />
+                                <!--<p [hidden]="words2[in].value">Field is required</p>
+              {{formRef.form.name1}}-->
+                            </div>
+                            <br />
+                        </div>
+                        <button [disabled]="!formRef.form.valid" (click)="add()">Add input</button>
+                    </form>
+                    <!-- added by vanitha end-->
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10 toolbar">
+            <div class="row">
+                <div class="col-md-3">
+                    <p>Mouse at : {{ currentPosition.x }},{{currentPosition.y}}</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Selected Shape : {{ this.shapeValue }}</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Shape count : {{ this.shapeService.getShapeComponents().length }}</p>
+                </div>
+                <div class="col-md-3">
+                    <button (click)="clearShapes()" type="button" class="btn btn-light">Clear</button>
+                </div>
+            </div>
+            <svg style="background-image:url('./assets/Capture.PNG')" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" (mousedown)="onMouseDown($event)"
+                (mouseup)="onMouseUp($event)" (mousemove)="onMouseMove($event)">
+                <ng-container *ngFor="let shape of getShapes()">
+                    <ng-template dynamic-svg [component]="shape"></ng-template>
+                </ng-container>
+            </svg>
+        </div>
+    </div>
+</div>
